@@ -1,10 +1,14 @@
 import React from "react"
 import { Alert } from "antd"
 
-const Error: React.FC = () => {
+type ErrorProps = {
+  msgText: object | unknown
+}
+
+const Error: React.FC<ErrorProps> = ({ msgText }) => {
   return (
     <div className='margin-1'>
-      <Alert message='Error' description='A Error has occurred' type='error' showIcon />
+      <Alert message='Error' description={(msgText as Error).toString()} type='error' showIcon />
     </div>
   )
 }

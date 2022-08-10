@@ -1,18 +1,30 @@
 import React from "react"
-import { Input, Row, Col, Alert, List, Avatar } from "antd"
-import { useQuery } from "@tanstack/react-query"
-import { searchMedia } from "api/apiService"
+import { Input, Row, Col, Alert, List, Avatar, InputNumber, Button, Space, Tooltip } from "antd"
 import Loading from "components/Loading"
 import Error from "components/Error"
+import useSearch from "hooks/useSearch"
 import { NasaData } from "types"
 import { Link } from "react-router-dom"
 
 const { Search } = Input
 
 const Home: React.FC = () => {
-  const [showAlert, setShowAlert] = React.useState<boolean>(false)
-  const [currentPage, setCurrentPage] = React.useState<number>(1)
-  const [searchTerm, setSearchTerm] = React.useState<string>("")
+  const [disabled, setDisabled] = React.useState<boolean>(true)
+
+  const {
+    data,
+    isError,
+    error,
+    isFetching,
+    currentPage,
+    setCurrentPage,
+    showAlert,
+    setShowAlert,
+    setSearchTerm,
+    refetch,
+    setYearStart,
+    setYearEnd,
+  } = useSearch()
 
   const onSearch = (value: string) => {
     if (value.length === 0) {
@@ -24,23 +36,20 @@ const Home: React.FC = () => {
     refetch()
   }
 
-  const { data, isError, isFetching, refetch } = useQuery(
-    ["search", searchTerm, currentPage],
-    () => searchMedia(searchTerm, currentPage),
-    {
-      enabled: searchTerm.length > 0,
-      retry: false,
-      keepPreviousData: true,
-      refetchOnWindowFocus: false,
-    },
-  )
+  const toggle = () => {
+    setDisabled(!disabled)
+  }
+
+  const onChangeStart = (value: string) => setYearStart(value)
+
+  const onChangeEnd = (value: string) => setYearEnd(value)
 
   if (isFetching) {
     return <Loading />
   }
 
   if (isError) {
-    return <Error />
+    return <Error msgText={error} />
   }
 
   return (
@@ -57,6 +66,28 @@ const Home: React.FC = () => {
           {showAlert && (
             <Alert message='Please enter your search term' type='warning' showIcon closable />
           )}
+        </Col>
+      </Row>
+      <Row justify='center' className='margin-1'>
+        <Col>
+          <Space>
+            <InputNumber disabled={disabled} onChange={onChangeStart} placeholder='Start Year' />
+            <InputNumber disabled={disabled} onChange={onChangeEnd} placeholder='End Year' />
+          </Space>
+        </Col>
+      </Row>
+      <Row justify='center' className='margin-1'>
+        <Col>
+          <Tooltip title='Toggle Start and End Year' color={"volcano"}>
+            <span>Toggle button for start year and end year search.</span>
+          </Tooltip>
+        </Col>
+      </Row>
+      <Row justify='center' className='margin-1'>
+        <Col>
+          <Button onClick={toggle} type='primary'>
+            Enable / Disable
+          </Button>
         </Col>
       </Row>
       <Row justify='center'>
