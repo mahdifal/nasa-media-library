@@ -9,6 +9,47 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-.search {
+
+.full-height {
+  min-height: 100vh !important;
+}
+
+.header-title {
+  color: #fff;
+  text-align: center;
+}
+
+.content {
+  padding: 0 50px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.back-icon {
+  font-size: 2rem;
+  color: #08c;
+  margin-bottom: 1rem;
+}
+
+.margin-1 {
   margin: 1rem 0;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ant-list-item-meta-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ant-avatar-lg {
+  width: 5rem !important;
+  height: 5rem !important;
 }

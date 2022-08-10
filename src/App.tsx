@@ -1,31 +1,38 @@
+import React from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Row, Layout, Col } from "antd"
-import Home from "pages/Home"
-import SingleResult from "pages/SingleResult"
-import NotFound from "pages/NotFound"
+import Loading from "components/Loading"
 
 const { Header, Content, Footer } = Layout
 
+const Home = React.lazy(() => import("pages/Home"))
+const SingleResult = React.lazy(() => import("pages/SingleResult"))
+const NotFound = React.lazy(() => import("pages/NotFound"))
+
 function App() {
   return (
-    <Layout className='layout'>
+    <Layout className='layout full-height'>
       <Header>
         <Row justify='center'>
-          <Col span={4}>
-            <h1 style={{ color: "#fff" }}>NSA Media Library</h1>
+          <Col xs={24} sm={22} md={16} lg={12} xl={12}>
+            <h1 className='header-title'>NSA Media Library</h1>
           </Col>
         </Row>
       </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Router>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/result/:slug' element={<SingleResult />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </Router>
+      <Content className='content'>
+        <React.Suspense fallback={<Loading />}>
+          <Router>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/result/:nasaId' element={<SingleResult />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </Router>
+        </React.Suspense>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer className='footer'>
+        We create Startups <a href='https://startupz.com'>StartupZ</a> © 2022
+      </Footer>
     </Layout>
   )
 }
