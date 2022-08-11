@@ -1,5 +1,5 @@
 import React from "react"
-import { Input, Row, Col, Alert, List, Avatar, InputNumber, Button, Space, Tooltip } from "antd"
+import { Input, Row, Col, Alert, List, Avatar, InputNumber, Space, Button } from "antd"
 import Loading from "components/Loading"
 import Error from "components/Error"
 import useSearch from "hooks/useSearch"
@@ -62,6 +62,7 @@ const Home: React.FC = () => {
             allowClear
             enterButton
             onSearch={onSearch}
+            data-testid='search'
           />
           {showAlert && (
             <Alert message='Please enter your search term' type='warning' showIcon closable />
@@ -78,15 +79,17 @@ const Home: React.FC = () => {
       </Row>
       <Row justify='center' className='margin-1'>
         <Col>
-          <Tooltip title='Toggle Start and End Year' color={"volcano"}>
-            <span>Toggle button for start year and end year search.</span>
-          </Tooltip>
+          {!disabled ? (
+            <span>Please enter start year and end year.</span>
+          ) : (
+            <span>Enable / Disable Year Search</span>
+          )}
         </Col>
       </Row>
       <Row justify='center' className='margin-1'>
         <Col>
           <Button onClick={toggle} type='primary'>
-            Enable / Disable
+            Toggle Year
           </Button>
         </Col>
       </Row>
@@ -104,6 +107,7 @@ const Home: React.FC = () => {
               showSizeChanger: false,
               hideOnSinglePage: true,
             }}
+            // @ts-ignore
             dataSource={data?.data?.collection?.items}
             renderItem={(item: NasaData) => {
               const nasa = item?.data?.map((nasa) => nasa)

@@ -5,6 +5,7 @@ export type NasaData = {
     description: string
     secondary_creator: string
     date_created: string
+    keywords: string[]
   }[]
   links: {
     href: string

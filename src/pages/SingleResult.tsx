@@ -1,5 +1,5 @@
 import React from "react"
-import { Col, Image, Row, Typography } from "antd"
+import { Col, Image, Row, Tag, Typography } from "antd"
 import { LeftCircleFilled } from "@ant-design/icons"
 import { Link, useParams } from "react-router-dom"
 import Loading from "components/Loading"
@@ -41,8 +41,17 @@ const SingleResult: React.FC = () => {
         </Col>
       </Row>
       <Row justify='center' className='margin-1'>
-        <Col xs={24} sm={22} md={16} lg={12} xl={12}>
+        <Col>
           <Text>Date: {dateTime.toLocaleString("en")}</Text>
+        </Col>
+      </Row>
+      <Row justify='center' className='margin-1'>
+        <Col>
+          {nasaData[0]?.keywords?.map((key) => (
+            <Tag color='cyan' key={key}>
+              {key}
+            </Tag>
+          ))}
         </Col>
       </Row>
       <Row justify='center' className='margin-1'>

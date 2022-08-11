@@ -1,8 +1,8 @@
 import React from "react"
-import { Col, Row, Space, Spin } from "antd"
+import { Col, Row, Spin } from "antd"
 
 const Loading: React.FC = () => (
-  <Row justify='center' className='margin-1'>
+  <Row justify='center' className='margin-1' data-testid='loading-element'>
     <Col>
       <Spin tip='Loading...' size='large' />
     </Col>

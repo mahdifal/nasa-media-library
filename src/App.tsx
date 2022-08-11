@@ -31,7 +31,7 @@ function App() {
         </React.Suspense>
       </Content>
       <Footer className='footer'>
-        We create Startups <a href='https://startupz.com'>StartupZ</a> © 2022
+        Created by <a href='https://www.mahdifalamarzi.info'>Mahdi Falamarzi</a> © 2022
       </Footer>
     </Layout>
   )
