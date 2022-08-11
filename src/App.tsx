@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Row, Layout, Col } from "antd"
+import Loading from "components/Loading"
+
+const { Header, Content, Footer } = Layout
+
+const Home = React.lazy(() => import("pages/Home"))
+const SingleResult = React.lazy(() => import("pages/SingleResult"))
+const NotFound = React.lazy(() => import("pages/NotFound"))
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Layout className='layout full-height'>
+      <Header>
+        <Row justify='center'>
+          <Col xs={24} sm={22} md={16} lg={12} xl={12}>
+            <h1 className='header-title'>NSA Media Library</h1>
+          </Col>
+        </Row>
+      </Header>
+      <Content className='content'>
+        <React.Suspense fallback={<Loading />}>
+          <Router>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/result/:nasaId' element={<SingleResult />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </Router>
+        </React.Suspense>
+      </Content>
+      <Footer className='footer'>
+        Created by <a href='https://www.mahdifalamarzi.info'>Mahdi Falamarzi</a> © 2022
+      </Footer>
+    </Layout>
+  )
 }
 
-export default App;
+export default App
