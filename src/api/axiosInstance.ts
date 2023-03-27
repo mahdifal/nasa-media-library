@@ -1,5 +1,5 @@
 import axios from "axios"
 
 export default axios.create({
-  baseURL: `${process.env.REACT_APP_APP_URL}`,
+  baseURL: "https://images-api.nasa.gov",
 })
